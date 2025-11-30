@@ -1,4 +1,4 @@
-# Geometry Intelligent Tutoring System - Ontology
+#Intelligent Tutoring System In Maths for Geometry Shape - Ontology
 
 ##  Overview
 This ontology models an **Intelligent Tutoring System (ITS)** for geometry education, designed to support personalized learning experiences through structured knowledge representation of geometric concepts, student interactions, and adaptive tutoring strategies.
