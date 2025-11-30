@@ -60,8 +60,7 @@ LoginSession
 | Relationship | Description | Domain → Range |
 |--------------|-------------|----------------|
 | `hasTutor`   | Student-tutor assignment | Student → Tutor |
-| `addresses
-  Difficulty`  | Problem resolution | Intervention → LearningDifficulty |
+| `addresses Difficulty`  | Problem resolution | Intervention → LearningDifficulty |
 | `conductedBy`| Session leadership | TutoringSession → Tutor |
 | `hasActiveSession` | User session tracking | User → LoginSession |
 | `measuresProgress` | Performance assessment | LearningActivity → Progress |
