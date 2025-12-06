@@ -1,0 +1,30 @@
+{
+  "john_math": {
+    "user_id": "student_001",
+    "name": "John",
+    "quiz": {
+      "total_score": 85,
+      "total_quizzes": 2,
+      "average_score": 85,
+      "last_quiz": "2024-01-15T10:45:00"
+    },
+    "practice": {
+      "completed_exercises": 8,
+      "correct_answers": 7,
+      "accuracy": 87.5,
+      "last_practice": "2024-01-15T10:30:00"
+    },
+    "overall_progress": 86.25,
+    "learning_patterns": {
+      "strong_areas": [
+        "cube_volume",
+        "triangle_area"
+      ],
+      "weak_areas": [
+        "sphere_surface",
+        "cylinder_volume"
+      ],
+      "last_activity": "2024-01-15T10:45:00"
+    }
+  }
+}

@@ -1,0 +1,358 @@
+:root {
+    --blue: #6a5af9;
+    --pink: #ff77d1;
+    --bg: #f6f8ff;
+    --card: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: #222;
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(135deg, var(--blue), #00c3ff);
+    color: #fff;
+    padding: 18px 20px;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    padding: 12px;
+    background: var(--card);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    cursor: pointer;
+    color: var(--blue);
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background: rgba(106, 90, 249, 0.1);
+}
+
+nav a.active {
+    background: linear-gradient(90deg, var(--blue), var(--pink));
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 18px auto;
+    padding: 0 18px;
+}
+
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 6px 18px rgba(105,104,170,0.06);
+    margin-bottom: 18px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 18px;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.shape-img {
+    width: 100%;
+    height: 320px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+
+.formula {
+    background: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #f0e8f7;
+}
+
+.small {
+    font-size: 13px;
+    color: #444;
+}
+
+input, button {
+    font-size: 15px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #cfcfe6;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn-pink {
+    background: var(--pink);
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    gap: 12px;
+}
+
+.quiz-option {
+    background: #f2f0ff;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quiz-option:hover {
+    background: #e6e4ff;
+}
+
+.progress-bar {
+    height: 18px;
+    background: #eee;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--blue), var(--pink));
+    transition: width .4s ease;
+}
+
+/* AI Chat Box Styles */
+.chat-container {
+    height: 400px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 12px;
+    border-radius: 15px;
+    line-height: 1.4;
+}
+
+.user-message {
+    align-self: flex-end;
+    background: var(--blue);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.ai-message {
+    align-self: flex-start;
+    background: #f0f0f0;
+    color: #333;
+    border-bottom-left-radius: 5px;
+}
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.chat-input input {
+    flex: 1;
+    margin: 0;
+}
+
+.suggested-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.suggestion {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.suggestion:hover {
+    background: #e9ecef;
+}
+
+/* Practice Section Styles */
+.practice-activity {
+    background: #f8f9ff;
+    border-left: 4px solid var(--blue);
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 8px;
+}
+
+.practice-activity h4 {
+    margin: 0 0 8px 0;
+    color: var(--blue);
+}
+
+.practice-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.practice-input input {
+    max-width: 200px;
+    margin: 0;
+}
+
+.feedback {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.correct {
+    background: #d4ffd9;
+    color: #2d5016;
+    border: 1px solid #b8e6b8;
+}
+
+.incorrect {
+    background: #ffd7d7;
+    color: #8b0000;
+    border: 1px solid #ffb8b8;
+}
+
+/* Progress Stats */
+.progress-stats {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    min-width: 120px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--blue);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--blue);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .flex {
+        flex-direction: column;
+    }
+    
+    .practice-input {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .practice-input input {
+        max-width: 100%;
+    }
+    
+    .progress-stats {
+        justify-content: center;
+    }
+    
+    nav {
+        flex-wrap: wrap;
+    }
+}

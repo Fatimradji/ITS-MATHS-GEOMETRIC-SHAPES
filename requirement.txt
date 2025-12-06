@@ -1,0 +1,8 @@
+
+**requirements.txt:**
+```txt
+Flask==2.3.3
+Flask-CORS==4.0.0
+owlready2==0.39
+rdflib==6.3.2
+python-dotenv==1.0.0

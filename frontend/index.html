@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tutoring System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-links a.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Home Section */
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .login-box {
+            padding: 2rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #718096;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-option {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        /* Shapes Section */
+        .shapes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .shape-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .shape-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .shape-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .shape-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+
+        .shape-formula {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Progress Section */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .progress-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-card h3 {
+            color: #444;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Practice Section */
+        .practice-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .practice-activity {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .practice-activity h3 {
+            color: #444;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .practice-activity p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .input-group input {
+            flex: 1;
+        }
+
+        .feedback {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .feedback.correct {
+            background: #d4ffd9;
+            color: #2b8a3e;
+        }
+
+        .feedback.incorrect {
+            background: #ffd7d7;
+            color: #c92a2a;
+        }
+
+        .practice-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Dashboard Section */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quick-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #444;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .quick-link-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* AI Tutor*/
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: #f7fafc;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .ai-message {
+            background: white;
+            color: #333;
+            border: 1px solid #e2e8f0;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input-container input {
+            flex: 1;
+        }
+
+        .suggested-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .suggested-question {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggested-question:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .main-container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .dashboard-grid,
+            .progress-grid,
+            .shapes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .input-group input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">📐</span>
+                <span>Geometry Tutor</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" id="navHome" class="active">Home</a></li>
+                <li><a href="#" id="navQuiz">Quiz</a></li>
+                <li><a href="#" id="navShapes">Shapes</a></li>
+                <li><a href="#" id="navProgress">Progress</a></li>
+                <li><a href="#" id="navPractice">Practice</a></li>
+                <li><a href="#" id="navDashboard">Dashboard</a></li>
+            </ul>
+            <div class="user-info">
+                <span id="welcome">Welcome, Guest!</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Home Section -->
+        <section id="sectionHome" class="section">
+            <div class="login-container">
+                <h1 class="section-title">Welcome to Geometry Tutor</h1>
+                <div class="login-box">
+                    <p style="margin-bottom: 1.5rem; color: #666;">
+                        Master geometry with interactive quizzes, practice exercises, and AI-powered tutoring.
+                    </p>
+                    <div class="input-group">
+                        <label for="studentName">Enter your name:</label>
+                        <input type="text" id="studentName" placeholder="Type your name here">
+                    </div>
+                    <div class="btn-group">
+                        <button id="btnLogin" class="btn">Start Learning</button>
+                        <button id="btnGuest" class="btn btn-secondary">Continue as Guest</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="sectionQuiz" class="section hidden">
+            <h2 class="section-title">Geometry Quiz</h2>
+            <div class="quiz-container">
+                <div class="quiz-question" id="quizQuestion">Loading question...</div>
+                <div class="quiz-options" id="quizOptions"></div>
+                <div class="quiz-navigation">
+                    <span id="quizCounter">Question 1/3</span>
+                    <button id="quizNext" class="btn">Next Question</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shapes Section -->
+        <section id="sectionShapes" class="section hidden">
+            <h2 class="section-title">Geometric Shapes</h2>
+            <div class="shapes-grid">
+                <div class="shape-card">
+                    <div class="shape-icon">⬜</div>
+                    <div class="shape-name">Cube</div>
+                    <div class="shape-formula">Volume = a³</div>
+                    <div class="shape-formula">Surface Area = 6a²</div>
+                    <div class="shape-formula"><p>A cube is a three-dimensional shape with six equal square faces, twelve equal edges, and eight vertices.   </div>
+                </div>
+                <div class="shape-card">
+                    <div class="shape-icon">🔵</div>
+                    <div class="shape-name">Sphere</div>
+                    <div class="shape-formula">Volume = 4/3πr³</div>
+                    <div class="shape-formula">Surface Area = 4πr²</div>
+                    <div class="shape-formula">A sphere is a perfectly round three-dimensional shape where every point on its surface is the same distance from its center.</div>
+                </div>
+                <div class="shape-card">
+                    <div class="shape-icon">📐</div>
+                    <div class="shape-name">Cone</div>
+                    <div class="shape-formula">Volume = 1/3πr²h</div>
+                    <div class="shape-formula">Surface Area = πr(r + √(r² + h²))</div>
+                    <div class="shape-formula">A cone is a three-dimensional shape with a circular base that tapers smoothly to a single point called the apex.</div>
+                </div>
+                <div class="shape-card">
+                    <div class="shape-icon">📦</div>
+                    <div class="shape-name">Cylinder</div>
+                    <div class="shape-formula">Volume = πr²h</div>
+                    <div class="shape-formula">Surface Area = 2πr(h + r)</div>
+                    <div class="shape-formula">A cylinder is a three-dimensional shape with two parallel circular bases connected by a curved surface of constant height.</div>
+                </div>
+                <div class="shape-card">
+                    <div class="shape-icon">△</div>
+                    <div class="shape-name">Triangle</div>
+                    <div class="shape-formula">Area = 1/2 × b × h</div>
+                    <div class="shape-formula">Perimeter = a + b + c</div>
+                    <div class="shape-formula">A triangle is a three-sided polygon formed by three connected line segments and three interior angles.</div>
+                </div>
+                <div class="shape-card">
+                    <div class="shape-icon">⬛</div>
+                    <div class="shape-name">Rectangle</div>
+                    <div class="shape-formula">Area = l × w</div>
+                    <div class="shape-formula">Perimeter = 2(l + w)</div>
+                    <div class="shape-formula">A triangle is a polygon with three sides and three angles whose interior angles always add up to 180 degrees</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="sectionProgress" class="section hidden">
+            <h2 class="section-title">Your Progress</h2>
+            <div class="progress-grid">
+                <div class="progress-card">
+                    <h3>Overall Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progFill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="progText">0% Complete</div>
+                </div>
+                <div class="progress-card">
+                    <h3>Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="quizScore">0%</div>
+                            <div class="stat-label">Quiz Score</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="practiceScore">0%</div>
+                            <div class="stat-label">Practice Score</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="completedExercises">0/5</div>
+                            <div class="stat-label">Exercises Completed</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <h3>Recent Activity</h3>
+                    <div id="recentActivity">
+                        <p>No activity yet. Complete quizzes and practice exercises to see your progress!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Section -->
+        <section id="sectionPractice" class="section hidden">
+            <h2 class="section-title">Practice Exercises</h2>
+            <div class="practice-container">
+                <!-- Practice exercises will be dynamically inserted here -->
+                <div id="practiceContent">
+                    <!-- This is where the API-loaded practice exercises will appear -->
+                    <p style="text-align: center; color: #666; padding: 2rem;">
+                        Loading practice exercises...
+                    </p>
+                </div>
+                
+                <div class="practice-controls">
+                    <button onclick="resetPractice()" class="btn btn-secondary">Reset All</button>
+                </div>
+
+                <!-- AI Chat Tutor Section -->
+                <div style="margin-top: 3rem;">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Need Help? Ask AI Tutor</h3>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message ai-message">
+                                Hello! I'm your geometry tutor. Ask me anything about shapes, formulas, or calculations!
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleChatInput(event)">
+                            <button onclick="sendMessage()" class="btn">Send</button>
+                        </div>
+                        <div class="suggested-questions">
+                            <div class="suggested-question" onclick="askSuggestedQuestion('How to calculate volume of a cube?')">
+                                Volume of cube?
+                            </div>
+                            <div class="suggested-question" onclick="askSuggestedQuestion('Surface area of sphere?')">
+                                Sphere surface area?
+                            </div>
+                            <div class="suggested-question" onclick="askSuggestedQuestion('Area of triangle?')">
+                                Triangle area?
+                            </div>
+                            <div class="suggested-question" onclick="askSuggestedQuestion('Cylinder volume?')">
+                                Cylinder volume?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="sectionDashboard" class="section hidden">
+            <h2 class="section-title">Learning Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Progress Overview</h3>
+                    <div class="progress-bar" style="margin: 1rem 0;">
+                        <div class="progress-fill" id="dashProgress" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="dashText">0% Complete</div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #667eea;" id="dashQuizScore">0%</div>
+                            <div style="font-size: 0.9rem; color: #666;">Quiz Score</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #667eea;" id="dashPracticeScore">0%</div>
+                            <div style="font-size: 0.9rem; color: #666;">Practice Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-links">
+                        <a href="#" id="goQuiz" class="quick-link">
+                            <span class="quick-link-icon">📝</span>
+                            <span>Take Quiz</span>
+                        </a>
+                        <a href="#" id="goShapes" class="quick-link">
+                            <span class="quick-link-icon">📐</span>
+                            <span>Learn Shapes</span>
+                        </a>
+                        <a href="#" id="goPractice" class="quick-link">
+                            <span class="quick-link-icon">💪</span>
+                            <span>Practice Exercises</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Recent Activity</h3>
+                    <div id="dashActivity">
+                        <p>No recent activity. Start learning to see your progress!</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Learning Tips</h3>
+                    <ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+                        <li>Practice regularly to reinforce concepts</li>
+                        <li>Use the AI tutor when you're stuck</li>
+                        <li>Review shapes formulas daily</li>
+                        <li>Take quizzes to test your knowledge</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

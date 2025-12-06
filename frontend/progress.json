@@ -1,0 +1,68 @@
+{
+  "student_001": {
+    "user_id": "student_001",
+    "name": "John",
+    "quiz": {
+      "total_score": 85,
+      "total_quizzes": 2,
+      "average_score": 85,
+      "last_quiz": "2024-01-15T10:45:00"
+    },
+    "practice": {
+      "completed_exercises": 8,
+      "correct_answers": 7,
+      "accuracy": 87.5,
+      "last_practice": "2024-01-15T10:30:00"
+    },
+    "overall_progress": 86.25,
+    "learning_patterns": {
+      "strong_areas": ["cube_volume", "triangle_area"],
+      "weak_areas": ["sphere_surface", "cylinder_volume"],
+      "last_activity": "2024-01-15T10:45:00"
+    }
+  },
+  "student_002": {
+    "user_id": "student_002",
+    "name": "Sarah",
+    "quiz": {
+      "total_score": 92,
+      "total_quizzes": 3,
+      "average_score": 92,
+      "last_quiz": "2024-01-14T15:20:00"
+    },
+    "practice": {
+      "completed_exercises": 10,
+      "correct_answers": 9,
+      "accuracy": 90.0,
+      "last_practice": "2024-01-14T14:45:00"
+    },
+    "overall_progress": 91.0,
+    "learning_patterns": {
+      "strong_areas": ["sphere_volume", "rectangle_area"],
+      "weak_areas": ["cone_surface", "triangle_perimeter"],
+      "last_activity": "2024-01-14T15:20:00"
+    }
+  },
+  "guest_7x9f3k2": {
+    "user_id": "guest_7x9f3k2",
+    "name": "Guest",
+    "quiz": {
+      "total_score": 60,
+      "total_quizzes": 1,
+      "average_score": 60,
+      "last_quiz": "2024-01-15T11:45:00"
+    },
+    "practice": {
+      "completed_exercises": 3,
+      "correct_answers": 2,
+      "accuracy": 66.67,
+      "last_practice": "2024-01-15T11:30:00"
+    },
+    "overall_progress": 63.34,
+    "learning_patterns": {
+      "strong_areas": ["cube_volume"],
+      "weak_areas": ["sphere_surface", "triangle_area", "cylinder_volume"],
+      "last_activity": "2024-01-15T11:45:00"
+    }
+  }
+}
